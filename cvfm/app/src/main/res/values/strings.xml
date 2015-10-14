@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">CVFM</string>
+    <string name="login_activity_title">Custo de Vida de Florianópolis</string>
+    <string name="control_activity_title">Pesquisas</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="login_edit_text_user">Usuário</string>
+    <string name="login_edit_text_password">Senha</string>
+    <string name="login_button_login">Entrar</string>
+    <string name="title_activity_splash">SplashActivity</string>
+
+    <string name="loading">Carregando...</string>
+
+    <string name="control_menu_option_update">Atualizar</string>
+    <string name="control_menu_option_logout">Sair</string>
+    <string name="title_activity_search">SearchActivity</string>
+</resources>

@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="br.udesc.ceavi.custodevida.ControlActivity">
+    <item android:id="@+id/menu_control_item_update"
+        android:title="@string/control_menu_option_update"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+    <item android:id="@+id/menu_control_item_logout"
+        android:title="@string/control_menu_option_logout"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+</menu>
