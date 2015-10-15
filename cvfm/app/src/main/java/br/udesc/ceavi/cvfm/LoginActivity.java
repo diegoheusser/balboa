@@ -85,11 +85,6 @@ public class LoginActivity extends Activity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
             RestAdapter restAdapter = new RestAdapter.Builder().
                     setEndpoint(AppContext.SERVICE_URL).setConverter(new GsonConverter(gson)).build();
