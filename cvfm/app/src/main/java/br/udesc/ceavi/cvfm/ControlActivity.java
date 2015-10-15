@@ -3,6 +3,7 @@ package br.udesc.ceavi.cvfm;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,11 +17,24 @@ import br.udesc.ceavi.cvfm.model.Control;
 
 public class ControlActivity extends ListActivity {
 
+    private SwipeRefreshLayout swipeRefreshLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(br.udesc.ceavi.cvfm.R.layout.control_activity);
 
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.control_activity_swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         final List<Control> list = Control.seekAllByResearcher(ControlActivity.this, AppContext.USER.getId());
 
         final ListView listView = getListView();

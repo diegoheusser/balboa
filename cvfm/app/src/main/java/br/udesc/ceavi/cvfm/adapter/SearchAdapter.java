@@ -58,6 +58,8 @@ public class SearchAdapter extends BaseAdapter {
         textViewOldPrice.setText("R$ "+values.get(position).getOldPrice());
         textViewOldBrand.setText(values.get(position).getOldBrand());
         textViewOldSpecification.setText(values.get(position).getOldSpecification());
+
         return view;
     }
+
 }
