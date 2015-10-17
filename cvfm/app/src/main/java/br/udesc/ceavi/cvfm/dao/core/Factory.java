@@ -3,6 +3,8 @@ package br.udesc.ceavi.cvfm.dao.core;
 import android.content.Context;
 
 import br.udesc.ceavi.cvfm.dao.control.ControlDAO;
+import br.udesc.ceavi.cvfm.dao.item.ItemDAO;
+import br.udesc.ceavi.cvfm.dao.search.SearchDAO;
 import br.udesc.ceavi.cvfm.dao.source.SourceDAO;
 import br.udesc.ceavi.cvfm.dao.user.UserDAO;
 
@@ -20,5 +22,9 @@ public abstract class Factory {
     public abstract ControlDAO getControlDAO();
 
     public abstract SourceDAO getSourceDAO();
+
+    public abstract ItemDAO getItemDAO();
+
+    public abstract SearchDAO getSearchDAO();
 
 }

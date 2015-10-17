@@ -46,7 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             ") ";
     private static final String SQL_CREATE_TABLE_SEARCH =
             "CREATE TABLE " + DatabaseDefinitions.TABLE_NAME_SEARCH + " ( " +
-            DatabaseDefinitions.COLUMNS_NAMES_SEARCH[0] + " INTEGER PRIMARY KEY, " +
+            DatabaseDefinitions.COLUMNS_NAMES_SEARCH[0] + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             DatabaseDefinitions.COLUMNS_NAMES_SEARCH[1] + " TEXT NOT NULL, " +
             DatabaseDefinitions.COLUMNS_NAMES_SEARCH[2] + " TEXT NOT NULL, " +
             DatabaseDefinitions.COLUMNS_NAMES_SEARCH[3] + " TEXT NOT NULL, " +
@@ -67,7 +67,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String SQL_DROP_TABLE_USER = "DROP TABLE IF EXISTS " + DatabaseDefinitions.TABLE_NAME_USER;
     private static final String SQL_DROP_TABLE_CONTROL = "DROP TABLE IF EXISTS " + DatabaseDefinitions.TABLE_NAME_CONTROL;
     private static final String SQL_DROP_TABLE_SEARCH = "DROP TABLE IF EXISTS " + DatabaseDefinitions.TABLE_NAME_SEARCH;
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 5;
     private static final String DATABASE_NAME = "custodevida";
 
     public DatabaseHelper(Context context) {

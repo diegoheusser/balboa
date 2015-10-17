@@ -18,10 +18,10 @@ public class SearchAdapter extends BaseAdapter {
     private final Context context;
     private final List<Search> values;
 
-    public SearchAdapter(Context context, List<Search> values) {
+    public SearchAdapter(Context context, int controleid) {
         super();
         this.context = context;
-        this.values = values;
+        this.values = Search.seekAllByControl(context,controleid);
     }
 
     @Override

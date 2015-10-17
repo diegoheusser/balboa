@@ -1,4 +1,4 @@
-package br.udesc.ceavi.cvfm.retrofit.response;
+package br.udesc.ceavi.cvfm.webservice.response;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -1,6 +1,12 @@
 package br.udesc.ceavi.cvfm.model;
 
+import android.content.Context;
+
 import java.util.Date;
+import java.util.List;
+
+import br.udesc.ceavi.cvfm.dao.core.Factory;
+import br.udesc.ceavi.cvfm.dao.search.SearchDAO;
 
 public class Search extends Model {
 
@@ -104,4 +110,20 @@ public class Search extends Model {
     public void setControl(Control control) {
         this.control = control;
     }
+
+    public static List<Search> seekAllByControl(Context context, int controlid){
+        SearchDAO dao = Factory.getInstance(context).getSearchDAO();
+        return dao.seekAllByControl(controlid);
+    }
+
+    public void save(Context context){
+        SearchDAO dao = Factory.getInstance(context).getSearchDAO();
+        dao.insert(this);
+    }
+
+    public void update(Context context){
+        SearchDAO dao = Factory.getInstance(context).getSearchDAO();
+        dao.update(this);
+    }
+
 }

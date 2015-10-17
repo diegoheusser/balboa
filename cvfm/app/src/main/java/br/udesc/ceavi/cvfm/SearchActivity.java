@@ -6,11 +6,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import java.util.List;
-
 import br.udesc.ceavi.cvfm.adapter.SearchAdapter;
 import br.udesc.ceavi.cvfm.base.AppContext;
-import br.udesc.ceavi.cvfm.model.Search;
 
 public class SearchActivity extends ListActivity {
 
@@ -22,10 +19,12 @@ public class SearchActivity extends ListActivity {
         this.setTitle(title);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        final List<Search> list = AppContext.CONTROL.getSearches();
         final ListView listView = getListView();
 
-        SearchAdapter adapter = new SearchAdapter(SearchActivity.this, list);
+        SearchAdapter adapter = new SearchAdapter(
+                SearchActivity.this,
+                AppContext.CONTROL.getId()
+        );
 
         listView.setAdapter(adapter);
 

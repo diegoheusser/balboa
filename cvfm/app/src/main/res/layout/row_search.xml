@@ -10,6 +10,7 @@
         android:id="@+id/list_activity_search_text_view_item"
         android:text="1110101 - Açúcar Refinado"
         android:textSize="20sp"
+        android:paddingLeft="5sp"
         android:layout_width="380dp"
         android:layout_height="30dp" />
     <LinearLayout
@@ -35,7 +36,7 @@
                 android:layout_height="30dp" />
         </LinearLayout>
         <LinearLayout
-            android:layout_width="90dp"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
@@ -50,10 +51,15 @@
             <EditText
                 android:id="@+id/list_activity_search_edit_text_new_price"
                 android:layout_width="match_parent"
+                android:maxLines="1"
+                android:lines="1"
+                android:imeActionLabel="próximo"
+                android:imeOptions="actionNext"
+                android:textSize="14sp"
                 android:layout_height="30dp" />
         </LinearLayout>
         <LinearLayout
-            android:layout_width="90dp"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
@@ -68,6 +74,10 @@
             <EditText
                 android:id="@+id/list_activity_search_edit_text_new_brand"
                 android:layout_width="match_parent"
+                android:maxLines="1"
+                android:lines="1"
+                android:imeActionLabel="próximo"
+                android:imeOptions="actionNext"
                 android:layout_height="30dp" />
         </LinearLayout>
         <LinearLayout
@@ -86,6 +96,10 @@
             <EditText
                 android:id="@+id/list_activity_search_edit_text_new_specification"
                 android:layout_width="match_parent"
+                android:maxLines="1"
+                android:lines="1"
+                android:imeActionLabel="próximo"
+                android:imeOptions="actionNext"
                 android:layout_height="30dp" />
         </LinearLayout>
     </LinearLayout>

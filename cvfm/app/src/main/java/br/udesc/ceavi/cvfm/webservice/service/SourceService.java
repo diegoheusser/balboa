@@ -1,6 +1,6 @@
-package br.udesc.ceavi.cvfm.retrofit.service;
+package br.udesc.ceavi.cvfm.webservice.service;
 
-import br.udesc.ceavi.cvfm.retrofit.response.SourceResponse;
+import br.udesc.ceavi.cvfm.webservice.response.SourceResponse;
 import retrofit.Callback;
 import retrofit.http.GET;
 
