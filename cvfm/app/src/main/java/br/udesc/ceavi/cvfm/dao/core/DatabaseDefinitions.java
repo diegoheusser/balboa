@@ -15,7 +15,7 @@ public class DatabaseDefinitions {
     public static final String[] COLUMNS_NAMES_USER = new String[]
             {"_id","name","user","password"};
     public static final String[] COLUMNS_NAMES_CONTROL = new String[]
-            {"_id","emission_date","delivery_date","percentage","week","month","year","source_id","researcher_id"};
+            {"_id","emission_date","delivery_date","status","week","month","year","source_id","researcher_id"};
     public static final String[] COLUMNS_NAMES_SEARCH = new String[]
             {"_id","old_date","old_brand","old_specification","old_price","new_date","new_brand",
                     "new_specification","new_price","item_id","control_id"};

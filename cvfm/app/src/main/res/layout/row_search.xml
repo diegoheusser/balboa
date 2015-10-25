@@ -4,10 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
+    android:background="#ffffff"
     android:padding="5sp">
 
     <TextView
-        android:id="@+id/list_activity_search_text_view_item"
+        android:id="@+id/row_search_text_view_item"
         android:text="1110101 - Açúcar Refinado"
         android:textSize="20sp"
         android:paddingLeft="5sp"
@@ -44,19 +45,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp" />
             <TextView
-                android:id="@+id/list_activity_search_text_view_old_price"
+                android:id="@+id/row_search_text_view_old_price"
                 android:text="R$ 1,00"
                 android:layout_width="match_parent"
                 android:layout_height="30dp" />
             <EditText
-                android:id="@+id/list_activity_search_edit_text_new_price"
+                android:id="@+id/row_search_edit_text_new_price"
                 android:layout_width="match_parent"
-                android:maxLines="1"
-                android:lines="1"
-                android:imeActionLabel="próximo"
-                android:imeOptions="actionNext"
+                android:inputType="numberDecimal"
                 android:textSize="14sp"
-                android:layout_height="30dp" />
+                android:layout_height="30dp"
+                android:selectAllOnFocus="true"
+                android:imeOptions="actionNext"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="110dp"
@@ -67,18 +67,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp" />
             <TextView
-                android:id="@+id/list_activity_search_text_view_old_brand"
+                android:id="@+id/row_search_text_view_old_brand"
                 android:text="União"
                 android:layout_width="match_parent"
                 android:layout_height="30dp" />
             <EditText
-                android:id="@+id/list_activity_search_edit_text_new_brand"
+                android:id="@+id/row_search_edit_text_new_brand"
                 android:layout_width="match_parent"
-                android:maxLines="1"
-                android:lines="1"
-                android:imeActionLabel="próximo"
-                android:imeOptions="actionNext"
-                android:layout_height="30dp" />
+                android:textSize="14sp"
+                android:layout_height="30dp"
+                android:inputType="text"
+                android:selectAllOnFocus="true"
+                android:imeOptions="actionNext" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="90dp"
@@ -89,18 +89,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp" />
             <TextView
-                android:id="@+id/list_activity_search_text_view_old_specification"
+                android:id="@+id/row_search_text_view_old_specification"
                 android:text="1 Kg"
                 android:layout_width="match_parent"
                 android:layout_height="30dp" />
             <EditText
-                android:id="@+id/list_activity_search_edit_text_new_specification"
+                android:id="@+id/row_search_edit_text_new_specification"
                 android:layout_width="match_parent"
-                android:maxLines="1"
-                android:lines="1"
-                android:imeActionLabel="próximo"
-                android:imeOptions="actionNext"
-                android:layout_height="30dp" />
+                android:inputType="text"
+                android:textSize="14sp"
+                android:layout_height="30dp"
+                android:selectAllOnFocus="true"
+                android:imeOptions="actionNext" />
         </LinearLayout>
     </LinearLayout>
 

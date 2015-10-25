@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.ListView;
 
 import br.udesc.ceavi.cvfm.adapter.SearchAdapter;
@@ -20,7 +21,7 @@ public class SearchActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         final ListView listView = getListView();
-
+        listView.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
         SearchAdapter adapter = new SearchAdapter(
                 SearchActivity.this,
                 AppContext.CONTROL.getId()

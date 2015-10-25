@@ -13,7 +13,7 @@ public class Control extends Model {
     private int id;
     private Date emissionDate;
     private Date deliveryDate;
-    private int percentage;
+    private int status;
     private int week;
     private int month;
     private int year;
@@ -46,12 +46,12 @@ public class Control extends Model {
         this.deliveryDate = deliveryDate;
     }
 
-    public int getPercentage() {
-        return percentage;
+    public int getStatus() {
+        return status;
     }
 
-    public void setPercentage(int percentage) {
-        this.percentage = percentage;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public int getWeek() {
@@ -125,7 +125,7 @@ public class Control extends Model {
         Control control = (Control) o;
 
         if (id != control.id) return false;
-        if (percentage != control.percentage) return false;
+        if (status != control.status) return false;
         if (week != control.week) return false;
         if (month != control.month) return false;
         if (year != control.year) return false;
@@ -144,7 +144,7 @@ public class Control extends Model {
         int result = id;
         result = 31 * result + (emissionDate != null ? emissionDate.hashCode() : 0);
         result = 31 * result + (deliveryDate != null ? deliveryDate.hashCode() : 0);
-        result = 31 * result + percentage;
+        result = 31 * result + status;
         result = 31 * result + week;
         result = 31 * result + month;
         result = 31 * result + year;

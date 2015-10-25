@@ -49,7 +49,7 @@ public class SQLiteControlDAO extends SQLiteStandardDAO<Control> implements Cont
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                control.setPercentage(c.getInt(3));
+                control.setStatus(c.getInt(3));
                 control.setWeek(c.getInt(4));
                 control.setMonth(c.getInt(5));
                 control.setYear(c.getInt(6));
@@ -82,7 +82,7 @@ public class SQLiteControlDAO extends SQLiteStandardDAO<Control> implements Cont
         } else {
             values.put(DatabaseDefinitions.COLUMNS_NAMES_CONTROL[2], "NULL");
         }
-        values.put(DatabaseDefinitions.COLUMNS_NAMES_CONTROL[3], control.getPercentage());
+        values.put(DatabaseDefinitions.COLUMNS_NAMES_CONTROL[3], control.getStatus());
         values.put(DatabaseDefinitions.COLUMNS_NAMES_CONTROL[4], control.getWeek());
         values.put(DatabaseDefinitions.COLUMNS_NAMES_CONTROL[5], control.getMonth());
         values.put(DatabaseDefinitions.COLUMNS_NAMES_CONTROL[6], control.getYear());

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.udesc.ceavi.cvfm.adapter.ControlAdapter;
@@ -21,12 +22,14 @@ public class ControlActivity extends ListActivity {
     private SwipeRefreshLayout swipeRefreshLayout;
     private ControlAdapter adapter;
     private ListView listView;
+    private List<Control> values;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppContext.CONTEXT = this;
         setContentView(br.udesc.ceavi.cvfm.R.layout.control_activity);
+        values = new ArrayList<>();
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.control_activity_swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -45,6 +48,7 @@ public class ControlActivity extends ListActivity {
                                         ControlActivity.this,
                                         AppContext.USER.getId()
                                 );
+
                         updateListView();
                         swipeRefreshLayout.setRefreshing(false);
                     }
@@ -73,15 +77,7 @@ public class ControlActivity extends ListActivity {
         adapter = new ControlAdapter(ControlActivity.this, list);
 
         listView.setAdapter(adapter);
+   }
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                AppContext.CONTROL = list.get(position);
-                Intent it = new Intent(ControlActivity.this, SearchActivity.class);
-                startActivity(it);
-            }
-        });
-    }
 
 }

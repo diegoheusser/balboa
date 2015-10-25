@@ -16,4 +16,14 @@
     <string name="control_menu_option_update">Atualizar</string>
     <string name="control_menu_option_logout">Sair</string>
     <string name="title_activity_search">SearchActivity</string>
+
+    <string name="dialog_upload_message">Você tem certeza que deseja enviar a pesquisa?</string>
+    <string name="dialog_upload_title">Enviar pesquisa</string>
+    <string name="dialog_ok_message">Você deseja apagar os dados?</string>
+    <string name="dialog_ok_title">Pesquisa enviada</string>
+    <string name="dialog_error_message">Aconteceu um error durante o envio.Você deseja reenviar?</string>
+    <string name="dialog_error_title">Erro</string>
+
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
 </resources>
