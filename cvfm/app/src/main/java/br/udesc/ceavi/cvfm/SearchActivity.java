@@ -1,55 +1,31 @@
 package br.udesc.ceavi.cvfm;
 
-import android.app.ListActivity;
+import android.app.TabActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.TabHost;
+import android.widget.TabHost.TabSpec;
 
-import br.udesc.ceavi.cvfm.adapter.SearchAdapter;
-import br.udesc.ceavi.cvfm.base.AppContext;
-
-public class SearchActivity extends ListActivity {
+public class SearchActivity extends TabActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        String title = AppContext.CONTROL.getSource().getDescription()
-                + " - "
-                + AppContext.CONTROL.getSource().getLocalization();
-        this.setTitle(title);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        final ListView listView = getListView();
-        listView.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
-        SearchAdapter adapter = new SearchAdapter(
-                SearchActivity.this,
-                AppContext.CONTROL.getId()
-        );
 
-        listView.setAdapter(adapter);
+        TabHost tabHost = getTabHost();
 
+        TabSpec tabToDo = tabHost.newTabSpec(getString(R.string.todo));
+        Intent toDoIntent = new Intent(this, SearchToDoActivity.class);
+        tabToDo.setContent(toDoIntent);
+
+        TabSpec tabDone = tabHost.newTabSpec(getString(R.string.done));
+        Intent doneIntent = new Intent(this, SearchDoneActivity.class);
+        tabDone.setContent(doneIntent);
+
+        tabHost.addTab(tabToDo);
+        tabHost.addTab(tabDone);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_search, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

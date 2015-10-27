@@ -100,13 +100,31 @@ public class SQLiteSearchDAO extends SQLiteStandardDAO<Search> implements Search
     }
 
     @Override
-    public List<Search> seekAllByControl(int controlid) {
+    public List<Search> seekAllToDo(int controlid) {
         DatabaseHelper dbHelper = new DatabaseHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        String select = "SELECT s.*, i.description, i.identifier FROM search as s JOIN item as i ON s.item_id = i._id WHERE s.control_id = ?";
+        String select = "SELECT s.*, i.description, i.identifier FROM search as s JOIN item as i ON s.item_id = i._id WHERE s.control_id = ? AND new_price == ? ";
 
-        Cursor cursor = db.rawQuery(select, new String[]{String.valueOf(controlid)});
+        Cursor cursor = db.rawQuery(select, new String[]{String.valueOf(controlid),null});
+
+        List<Search> list = getList(cursor);
+
+        cursor.close();
+        db.close();
+        dbHelper.close();
+
+        return list;
+    }
+
+    @Override
+    public List<Search> seekAllDone(int controlid) {
+        DatabaseHelper dbHelper = new DatabaseHelper(context);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        String select = "SELECT s.*, i.description, i.identifier FROM search as s JOIN item as i ON s.item_id = i._id WHERE s.control_id = ? AND new_price > ? AND new_price != ?";
+
+        Cursor cursor = db.rawQuery(select, new String[]{String.valueOf(controlid),String.valueOf(0), null});
 
         List<Search> list = getList(cursor);
 

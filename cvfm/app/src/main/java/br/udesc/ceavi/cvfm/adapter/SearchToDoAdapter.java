@@ -1,6 +1,5 @@
 package br.udesc.ceavi.cvfm.adapter;
 
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,15 +14,15 @@ import java.util.List;
 import br.udesc.ceavi.cvfm.R;
 import br.udesc.ceavi.cvfm.model.Search;
 
-public class SearchAdapter extends BaseAdapter {
+public class SearchToDoAdapter extends BaseAdapter {
 
     private final Context context;
     private final List<Search> values;
 
-    public SearchAdapter(Context context, int controleid) {
+    public SearchToDoAdapter(Context context, List<Search> values) {
         super();
         this.context = context;
-        this.values = Search.seekAllByControl(context,controleid);
+        this.values = values;
     }
 
     @Override
@@ -45,21 +44,21 @@ public class SearchAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater)
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.row_search, parent, false);
+        View view = inflater.inflate(R.layout.todo_list_item, parent, false);
         TextView textViewItem = (TextView)
-                view.findViewById(R.id.row_search_text_view_item);
+                view.findViewById(R.id.todo_list_item_text_view_item);
         TextView textViewOldPrice = (TextView)
-                view.findViewById(R.id.row_search_text_view_old_price);
+                view.findViewById(R.id.todo_list_item_text_view_old_price);
         TextView textViewOldBrand = (TextView)
-                view.findViewById(R.id.row_search_text_view_old_brand);
+                view.findViewById(R.id.todo_list_item_text_view_old_brand);
         TextView textViewOldSpecification = (TextView)
-                view.findViewById(R.id.row_search_text_view_old_specification);
-        EditText editTextNewPrice = (EditText)
-                view.findViewById(R.id.row_search_edit_text_new_price);
+                view.findViewById(R.id.todo_list_item_text_view_old_specification);
+        final EditText editTextNewPrice = (EditText)
+                view.findViewById(R.id.todo_list_item_edit_text_new_price);
         EditText editTextNewBrand = (EditText)
-                view.findViewById(R.id.row_search_edit_text_new_brand);
+                view.findViewById(R.id.todo_list_item_edit_text_new_brand);
         EditText editTextNewSpecification = (EditText)
-                view.findViewById(R.id.row_search_edit_text_new_specification);
+                view.findViewById(R.id.todo_list_item_edit_text_new_specification);
         textViewItem.setText(values.get(position).getItem().getIdentifier()
                 + " - "
                 + values.get(position).getItem().getDescription());
@@ -75,6 +74,29 @@ public class SearchAdapter extends BaseAdapter {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     values.get(position).setNewDate(new Date());
+                    values.get(position).setNewPrice(
+                            Double.parseDouble(((EditText) v).getText().toString()));
+                    if(position > 0){
+                        values.get(position - 1).update(context);
+                        values.remove(position -1);
+                        notifyDataSetChanged();
+                    }
+                }
+            }
+        });
+        editTextNewBrand.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    values.get(position).setNewBrand(((EditText) v).getText().toString());
+                }
+            }
+        });
+        editTextNewSpecification.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    values.get(position).setNewSpecification(((EditText)v).getText().toString());
                 }
             }
         });

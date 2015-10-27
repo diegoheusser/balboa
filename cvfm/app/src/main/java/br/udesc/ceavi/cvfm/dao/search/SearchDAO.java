@@ -8,6 +8,7 @@ import br.udesc.ceavi.cvfm.model.Search;
 
 public interface SearchDAO extends StandardDAO<Search> {
 
-    List<Search> seekAllByControl(int controlid);
+    List<Search> seekAllToDo(int controlid);
+    List<Search> seekAllDone(int controlid);
 
 }

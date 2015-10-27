@@ -37,6 +37,8 @@
             android:label="@string/title_activity_search"
             android:windowSoftInputMode="adjustPan">
         </activity>
+        <activity android:name=".SearchDoneActivity"/>
+        <activity android:name=".SearchToDoActivity"/>
     </application>
 
 </manifest>

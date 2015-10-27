@@ -111,9 +111,14 @@ public class Search extends Model {
         this.control = control;
     }
 
-    public static List<Search> seekAllByControl(Context context, int controlid){
+    public static List<Search> seekAllToDo(Context context, int controlid){
         SearchDAO dao = Factory.getInstance(context).getSearchDAO();
-        return dao.seekAllByControl(controlid);
+        return dao.seekAllToDo(controlid);
+    }
+
+    public static List<Search> seekAllDone(Context context, int controlid){
+        SearchDAO dao = Factory.getInstance(context).getSearchDAO();
+        return dao.seekAllDone(controlid);
     }
 
     public void save(Context context){
