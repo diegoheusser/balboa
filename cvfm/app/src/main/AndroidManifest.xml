@@ -38,7 +38,8 @@
             android:windowSoftInputMode="adjustPan">
         </activity>
         <activity android:name=".SearchDoneActivity"/>
-        <activity android:name=".SearchToDoActivity"/>
+        <activity android:name=".SearchToDoActivity"
+            android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>

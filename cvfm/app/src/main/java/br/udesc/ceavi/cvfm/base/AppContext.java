@@ -2,6 +2,7 @@ package br.udesc.ceavi.cvfm.base;
 
 import android.content.Context;
 
+import br.udesc.ceavi.cvfm.adapter.SearchDoneAdapter;
 import br.udesc.ceavi.cvfm.model.Control;
 import br.udesc.ceavi.cvfm.model.User;
 

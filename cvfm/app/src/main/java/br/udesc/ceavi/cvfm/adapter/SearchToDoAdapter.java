@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 import br.udesc.ceavi.cvfm.R;
+import br.udesc.ceavi.cvfm.base.AppContext;
 import br.udesc.ceavi.cvfm.model.Search;
 
 public class SearchToDoAdapter extends BaseAdapter {
@@ -76,9 +77,9 @@ public class SearchToDoAdapter extends BaseAdapter {
                     values.get(position).setNewDate(new Date());
                     values.get(position).setNewPrice(
                             Double.parseDouble(((EditText) v).getText().toString()));
-                    if(position > 0){
+                    if(position > 0 && values.get(position-1).getNewPrice() > 0){
                         values.get(position - 1).update(context);
-                        values.remove(position -1);
+                        values.remove(position - 1);
                         notifyDataSetChanged();
                     }
                 }

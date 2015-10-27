@@ -35,7 +35,7 @@ public class SQLiteSearchDAO extends SQLiteStandardDAO<Search> implements Search
 
     @Override
     protected List<Search> getList(Cursor c) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         List<Search> list = new ArrayList<>();
         if(c != null && c.moveToFirst()){
             do{
@@ -72,7 +72,7 @@ public class SQLiteSearchDAO extends SQLiteStandardDAO<Search> implements Search
     @Override
     protected ContentValues getContentValues(Search search) {
         ContentValues values = new ContentValues();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if(search.getOldDate() != null){
             values.put(DatabaseDefinitions.COLUMNS_NAMES_SEARCH[1],sdf.format(search.getOldDate()));
         } else {
@@ -104,9 +104,9 @@ public class SQLiteSearchDAO extends SQLiteStandardDAO<Search> implements Search
         DatabaseHelper dbHelper = new DatabaseHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        String select = "SELECT s.*, i.description, i.identifier FROM search as s JOIN item as i ON s.item_id = i._id WHERE s.control_id = ? AND new_price == ? ";
+        String select = "SELECT s.*, i.description, i.identifier FROM search as s JOIN item as i ON s.item_id = i._id WHERE s.control_id = ? AND new_price == 0.0 ORDER BY _id";
 
-        Cursor cursor = db.rawQuery(select, new String[]{String.valueOf(controlid),null});
+        Cursor cursor = db.rawQuery(select, new String[]{String.valueOf(controlid)});
 
         List<Search> list = getList(cursor);
 
@@ -122,9 +122,9 @@ public class SQLiteSearchDAO extends SQLiteStandardDAO<Search> implements Search
         DatabaseHelper dbHelper = new DatabaseHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        String select = "SELECT s.*, i.description, i.identifier FROM search as s JOIN item as i ON s.item_id = i._id WHERE s.control_id = ? AND new_price > ? AND new_price != ?";
+        String select = "SELECT s.*, i.description, i.identifier FROM search as s JOIN item as i ON s.item_id = i._id WHERE s.control_id = ? AND new_price > 0.0 ORDER BY _id DESC";
 
-        Cursor cursor = db.rawQuery(select, new String[]{String.valueOf(controlid),String.valueOf(0), null});
+        Cursor cursor = db.rawQuery(select, new String[]{String.valueOf(controlid)});
 
         List<Search> list = getList(cursor);
 

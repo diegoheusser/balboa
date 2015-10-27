@@ -33,30 +33,12 @@ public class Control {
                 List<br.udesc.ceavi.cvfm.model.Control> olds =
                         br.udesc.ceavi.cvfm.model.Control.seekAllByResearcher(AppContext.CONTEXT,userid);
                 List<br.udesc.ceavi.cvfm.model.Control> news = controlResponse.getControlList();
-                List<br.udesc.ceavi.cvfm.model.Search> oldsSearches = new ArrayList<>();
                 for(br.udesc.ceavi.cvfm.model.Control c: news){
                     if(!olds.contains(c)){
                         if(c.onTheList(olds)){
                             c.update(AppContext.CONTEXT);
                         } else {
                             c.save(AppContext.CONTEXT);
-                        }
-                    }
-                    if(c.getSearches() != null && c.getSearches().size()>0){
-                        oldsSearches =
-                                br.udesc.ceavi.cvfm.model.Search.seekAllByControl(
-                                        AppContext.CONTEXT,
-                                        c.getId()
-                                );
-                        for(br.udesc.ceavi.cvfm.model.Search s: c.getSearches()){
-                            s.setControl(c);
-                            if(!oldsSearches.contains(s)){
-                                if(s.onTheList(oldsSearches)){
-                                    s.update(AppContext.CONTEXT);
-                                } else {
-                                    s.save(AppContext.CONTEXT);
-                                }
-                            }
                         }
                     }
                 }
