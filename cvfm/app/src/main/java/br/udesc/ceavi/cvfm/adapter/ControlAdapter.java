@@ -1,9 +1,11 @@
 package br.udesc.ceavi.cvfm.adapter;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +15,23 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.Date;
 import java.util.List;
 
 import br.udesc.ceavi.cvfm.R;
 import br.udesc.ceavi.cvfm.SearchActivity;
 import br.udesc.ceavi.cvfm.base.AppContext;
 import br.udesc.ceavi.cvfm.model.Control;
+import br.udesc.ceavi.cvfm.model.Search;
+import br.udesc.ceavi.cvfm.webservice.service.ControlService;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import retrofit.converter.GsonConverter;
 
 public class ControlAdapter extends BaseAdapter {
 
@@ -94,8 +107,7 @@ public class ControlAdapter extends BaseAdapter {
                                 .setTitle(R.string.dialog_upload_title);
                         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                values.get(position).setStatus(2);
-                                notifyDataSetChanged();
+                                new ExportControl().execute(String.valueOf(position));
                             }
                         });
                         builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
@@ -114,6 +126,7 @@ public class ControlAdapter extends BaseAdapter {
                                 .setTitle(R.string.dialog_ok_title);
                         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                values.get(position).delete(context);
                                 values.remove(position);
                                 notifyDataSetChanged();
                             }
@@ -134,8 +147,7 @@ public class ControlAdapter extends BaseAdapter {
                                 .setTitle(R.string.dialog_error_title);
                         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                values.get(position).setStatus(1);
-                                notifyDataSetChanged();
+                                new ExportControl().execute(String.valueOf(position));
                             }
                         });
                         builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
@@ -204,6 +216,59 @@ public class ControlAdapter extends BaseAdapter {
             default: {
                 return " ";
             }
+        }
+    }
+
+    private class ExportControl extends AsyncTask<String, String, String>{
+
+        private ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(context);
+            progressDialog.setMessage(context.getString(R.string.loading));
+            progressDialog.setIndeterminate(false);
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            progressDialog.dismiss();
+            notifyDataSetChanged();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            final int position = Integer.parseInt(params.clone()[0]);
+            Gson gson = new GsonBuilder()
+                    .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                    .create();
+            RestAdapter restAdapter = new RestAdapter
+                    .Builder()
+                    .setEndpoint(AppContext.SERVICE_URL)
+                    .setConverter(new GsonConverter(gson))
+                    .build();
+            ControlService service = restAdapter.create(ControlService.class);
+            values.get(position).setDeliveryDate(new Date());
+            values.get(position).setSearches(
+                    Search.seekAllDone(context,values.get(position).getId())
+            );
+            service.update(values.get(position), new Callback<Control>() {
+                @Override
+                public void success(Control control, Response response) {
+                    values.get(position).setStatus(1);
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    values.get(position).setStatus(2);
+                }
+            });
+
+            return null;
         }
     }
 }

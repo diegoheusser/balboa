@@ -7,6 +7,7 @@ import java.util.List;
 
 import br.udesc.ceavi.cvfm.dao.control.ControlDAO;
 import br.udesc.ceavi.cvfm.dao.core.Factory;
+import br.udesc.ceavi.cvfm.dao.search.SearchDAO;
 
 public class Control extends Model {
 
@@ -115,6 +116,13 @@ public class Control extends Model {
     public void update(Context context){
         ControlDAO dao = Factory.getInstance(context).getControlDAO();
         dao.update(this);
+    }
+
+    public void delete(Context context){
+        SearchDAO sdao = Factory.getInstance(context).getSearchDAO();
+        sdao.deleteByControl(id);
+        ControlDAO dao = Factory.getInstance(context).getControlDAO();
+        dao.delete(this);
     }
 
     @Override

@@ -10,5 +10,6 @@ public interface SearchDAO extends StandardDAO<Search> {
 
     List<Search> seekAllToDo(int controlid);
     List<Search> seekAllDone(int controlid);
+    void deleteByControl(int controlid);
 
 }

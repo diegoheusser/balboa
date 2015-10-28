@@ -134,4 +134,13 @@ public class SQLiteSearchDAO extends SQLiteStandardDAO<Search> implements Search
 
         return list;
     }
+
+    @Override
+    public void deleteByControl(int controlid) {
+        DatabaseHelper dbHelper = new DatabaseHelper(context);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        db.delete(getTableName(),getColumnsNames()[10]+" = ?",new String[]{controlid+""});
+        db.close();
+        dbHelper.close();
+    }
 }

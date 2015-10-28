@@ -67,7 +67,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String SQL_DROP_TABLE_USER = "DROP TABLE IF EXISTS " + DatabaseDefinitions.TABLE_NAME_USER;
     private static final String SQL_DROP_TABLE_CONTROL = "DROP TABLE IF EXISTS " + DatabaseDefinitions.TABLE_NAME_CONTROL;
     private static final String SQL_DROP_TABLE_SEARCH = "DROP TABLE IF EXISTS " + DatabaseDefinitions.TABLE_NAME_SEARCH;
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 12;
     private static final String DATABASE_NAME = "custodevida";
 
     public DatabaseHelper(Context context) {
