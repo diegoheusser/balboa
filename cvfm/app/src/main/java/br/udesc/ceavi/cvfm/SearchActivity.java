@@ -34,6 +34,7 @@ public class SearchActivity extends TabActivity {
 
         tabHost.addTab(tabToDo);
         tabHost.addTab(tabDone);
+        //Criar uma interface para implementar chamar a atualização da lista, e salvar a interface na classe Appcontext para pegar a referência
 
     }
 
