@@ -14,15 +14,17 @@ import br.udesc.ceavi.cvfm.adapter.SearchDoneAdapter;
 import br.udesc.ceavi.cvfm.base.AppContext;
 import br.udesc.ceavi.cvfm.model.Search;
 
-public class SearchDoneActivity extends ListActivity {
+public class SearchDoneActivity extends ListActivity implements UpdateListView {
 
     private ProgressDialog progressDialog;
     private List<Search> values;
+    private SearchDoneAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.done_list);
+        AppContext.listViewDone = this;
         values = new ArrayList<>();
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.done_list_swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -39,6 +41,11 @@ public class SearchDoneActivity extends ListActivity {
             }
         });
         new LoadSearch().execute();
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        adapter.notifyDataSetChanged();
     }
 
     private class LoadSearch extends AsyncTask<String, String, String> {
@@ -60,7 +67,7 @@ public class SearchDoneActivity extends ListActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    SearchDoneAdapter adapter = new SearchDoneAdapter(
+                    adapter = new SearchDoneAdapter(
                             SearchDoneActivity.this,
                             values
                     );

@@ -16,8 +16,8 @@ public class SearchActivity extends TabActivity {
         setContentView(R.layout.activity_search);
         setTitle(
                 AppContext.CONTROL.getSource().getDescription()
-                + " - "
-                + AppContext.CONTROL.getSource().getLocalization()
+                        + " - "
+                        + AppContext.CONTROL.getSource().getLocalization()
         );
 
         TabHost tabHost = getTabHost();
@@ -36,6 +36,12 @@ public class SearchActivity extends TabActivity {
         tabHost.addTab(tabDone);
         //Criar uma interface para implementar chamar a atualização da lista, e salvar a interface na classe Appcontext para pegar a referência
 
+        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                System.out.println("tabId --->"+tabId);
+            }
+        });
     }
 
 
