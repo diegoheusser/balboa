@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.speech.tts.TextToSpeech;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
@@ -26,26 +27,19 @@ public class SearchDoneActivity extends ListActivity implements UpdateListView {
         setContentView(R.layout.done_list);
         AppContext.listViewDone = this;
         values = new ArrayList<>();
-        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.done_list_swipe_refresh_layout);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                swipeRefreshLayout.setRefreshing(true);
-                (new Handler()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        new LoadSearch().execute();
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
-                }, 1000);
-            }
-        });
         new LoadSearch().execute();
     }
 
     @Override
     public void notifyDataSetChanged() {
-        adapter.notifyDataSetChanged();
+        if(adapter != null) {
+            values = Search.seekAllDone(
+                    SearchDoneActivity.this,
+                    AppContext.CONTROL.getId()
+            );
+            adapter.setValues(values);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     private class LoadSearch extends AsyncTask<String, String, String> {

@@ -9,12 +9,13 @@ import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.Path;
 
+
 public interface ControlService {
 
     @GET("/rest/control/seekall/{researcherid}")
     void seekControlsByResearcher(@Path("researcherid") int researcherid, Callback<ControlResponse> cb);
 
     @POST("/rest/control/update")
-    void update(@Body Control control, Callback<Control> cb);
+    void update(@Body Control control, Callback<String> cb);
 
 }

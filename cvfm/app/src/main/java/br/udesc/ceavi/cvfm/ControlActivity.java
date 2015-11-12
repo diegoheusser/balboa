@@ -27,7 +27,14 @@ public class ControlActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         AppContext.CONTEXT = this;
         setContentView(br.udesc.ceavi.cvfm.R.layout.control_activity);
-
+        final List<Control> list =
+                Control.seekAllByResearcher(
+                        ControlActivity.this,
+                        AppContext.USER.getId()
+                );
+        listView = getListView();
+        adapter = new ControlAdapter(ControlActivity.this, list);
+        listView.setAdapter(adapter);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.control_activity_swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -42,14 +49,6 @@ public class ControlActivity extends ListActivity {
                 }, 1000);
             }
         });
-        new LoadControl().execute();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_control, menu);
-        return true;
     }
 
     private void updateListView(){
@@ -71,7 +70,7 @@ public class ControlActivity extends ListActivity {
    }
 
 
-    private class LoadControl extends AsyncTask<String, String, String> {
+    /*private class LoadControl extends AsyncTask<String, String, String> {
 
         @Override
         protected void onPreExecute() {
@@ -85,7 +84,11 @@ public class ControlActivity extends ListActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            updateListView();
+            try {
+                updateListView();
+            } catch(Exception ex){
+                ex.printStackTrace();
+            }
             return null;
         }
 
@@ -93,6 +96,7 @@ public class ControlActivity extends ListActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             progressDialog.dismiss();
+            adapter.notifyDataSetChanged();
         }
-    }
+    }*/
 }

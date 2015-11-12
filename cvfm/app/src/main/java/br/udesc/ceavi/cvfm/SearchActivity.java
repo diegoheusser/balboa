@@ -39,7 +39,9 @@ public class SearchActivity extends TabActivity {
         tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String tabId) {
-                System.out.println("tabId --->"+tabId);
+                if (tabId.equals(getString(R.string.done))){
+                    AppContext.listViewDone.notifyDataSetChanged();
+                }
             }
         });
     }

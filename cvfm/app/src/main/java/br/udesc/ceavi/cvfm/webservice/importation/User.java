@@ -35,8 +35,6 @@ public class User {
             public void success(ResearcherResponse obj, Response response) {
                 List<br.udesc.ceavi.cvfm.model.User> oldResearchers = br.udesc.ceavi.cvfm.model.User.seekAll(AppContext.CONTEXT);
                 List<br.udesc.ceavi.cvfm.model.User> newResearchers = obj.getResearcherList();
-                System.out.println(oldResearchers.toString());
-                System.out.println(newResearchers.toString());
                 for(br.udesc.ceavi.cvfm.model.User u: newResearchers){
                     if(!oldResearchers.contains(u)){
                         if(u.onTheList(oldResearchers)){

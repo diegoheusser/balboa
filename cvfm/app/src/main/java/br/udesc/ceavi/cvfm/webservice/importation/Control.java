@@ -3,7 +3,6 @@ package br.udesc.ceavi.cvfm.webservice.importation;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.udesc.ceavi.cvfm.base.AppContext;
@@ -39,6 +38,12 @@ public class Control {
                             c.update(AppContext.CONTEXT);
                         } else {
                             c.save(AppContext.CONTEXT);
+                            if(c.getSearches() != null){
+                                for(br.udesc.ceavi.cvfm.model.Search s: c.getSearches()){
+                                    s.setControl(c);
+                                    s.save(AppContext.CONTEXT);
+                                }
+                            }
                         }
                     }
                 }

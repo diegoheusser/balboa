@@ -107,6 +107,7 @@ public class ControlAdapter extends BaseAdapter {
                                 .setTitle(R.string.dialog_upload_title);
                         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                System.out.println("Opção sim");
                                 new ExportControl().execute(String.valueOf(position));
                             }
                         });
@@ -236,13 +237,14 @@ public class ControlAdapter extends BaseAdapter {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            progressDialog.dismiss();
             notifyDataSetChanged();
+            progressDialog.dismiss();
         }
 
         @Override
         protected String doInBackground(String... params) {
             final int position = Integer.parseInt(params.clone()[0]);
+            System.out.println("position ---> " + position);
             Gson gson = new GsonBuilder()
                     .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                     .create();
@@ -254,19 +256,29 @@ public class ControlAdapter extends BaseAdapter {
             ControlService service = restAdapter.create(ControlService.class);
             values.get(position).setDeliveryDate(new Date());
             values.get(position).setSearches(
-                    Search.seekAllDone(context,values.get(position).getId())
+                    Search.seekAllDone(context, values.get(position).getId())
             );
-            service.update(values.get(position), new Callback<Control>() {
+            service.update(values.get(position), new Callback<String>() {
                 @Override
-                public void success(Control control, Response response) {
-                    values.get(position).setStatus(1);
+                public void success(String s, Response response) {
+                    System.out.println("S ---> "+s);
+                    if(s != null){
+                        if (s.equals("success")) {
+                            values.get(position).setStatus(1);
+                        } else {
+                            System.out.println("Not Success ---> " + s);
+                            values.get(position).setStatus(2);
+                        }
+                    }
                 }
 
                 @Override
                 public void failure(RetrofitError error) {
+                    System.out.println("Failure ---> " + error.getMessage());
                     values.get(position).setStatus(2);
                 }
             });
+            values.get(position).update(context);
 
             return null;
         }

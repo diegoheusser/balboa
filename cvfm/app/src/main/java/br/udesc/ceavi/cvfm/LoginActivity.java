@@ -1,6 +1,7 @@
 package br.udesc.ceavi.cvfm;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import br.udesc.ceavi.cvfm.model.User;
 
 public class LoginActivity extends Activity {
 
+    private ProgressDialog progressDialog;
     private EditText editTextUser;
     private EditText editTextPassword;
     private Button buttonLogin;
@@ -51,30 +53,36 @@ public class LoginActivity extends Activity {
                     Toast.makeText(LoginActivity.this,"Usuário ou senha inválidos",Toast.LENGTH_LONG).show();
                 } else {
                     AppContext.USER = u;
-                    Toast.makeText(LoginActivity.this,"Logado!",Toast.LENGTH_LONG).show();
-                    new ControlAsyncTask().execute();
+                    new Load().execute();
                 }
             }
         });
     }
 
-    private class ControlAsyncTask extends AsyncTask<Void, Void, Void> {
+    private class Load extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Intent i = new Intent(LoginActivity.this,LoadActivity.class);
-            startActivity(i);
+            progressDialog = new ProgressDialog(LoginActivity.this);
+            progressDialog.setMessage(getString(R.string.loading));
+            progressDialog.setIndeterminate(false);
+            progressDialog.setCancelable(false);
+            progressDialog.show();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-
+            new br.udesc.ceavi.cvfm.webservice.importation.Item().importItems();
+            new br.udesc.ceavi.cvfm.webservice.importation.Source().importSources();
+            br.udesc.ceavi.cvfm.webservice.importation.Control  c = new br.udesc.ceavi.cvfm.webservice.importation.Control();
+            c.importControlsByUser(AppContext.USER.getId());
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            progressDialog.dismiss();
             Intent i = new Intent(LoginActivity.this,ControlActivity.class);
             startActivity(i);
         }

@@ -14,7 +14,6 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppContext.CONTEXT = this;
-        Log.i("SplashActivity","onCreate");
         setContentView(br.udesc.ceavi.cvfm.R.layout.activity_splash);
         new ResearchersAsyncTask().execute();
     }

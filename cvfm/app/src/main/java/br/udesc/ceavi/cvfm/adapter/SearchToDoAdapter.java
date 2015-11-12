@@ -77,11 +77,12 @@ public class SearchToDoAdapter extends BaseAdapter {
                     values.get(position).setNewDate(new Date());
                     values.get(position).setNewPrice(
                             Double.parseDouble(((EditText) v).getText().toString()));
-                    if(position > 0 && values.get(position-1).getNewPrice() > 0){
+                    if (position > 0 && values.get(position - 1).getNewPrice() > 0) {
                         values.get(position - 1).update(context);
                         values.remove(position - 1);
                         notifyDataSetChanged();
                     }
+
                 }
             }
         });
@@ -98,6 +99,9 @@ public class SearchToDoAdapter extends BaseAdapter {
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus){
                     values.get(position).setNewSpecification(((EditText)v).getText().toString());
+                    if (position == 0 && values.size() == 1) {
+                        values.get(position).update(context);
+                    }
                 }
             }
         });
