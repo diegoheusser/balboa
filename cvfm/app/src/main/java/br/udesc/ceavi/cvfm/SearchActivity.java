@@ -40,7 +40,7 @@ public class SearchActivity extends TabActivity {
             @Override
             public void onTabChanged(String tabId) {
                 if (tabId.equals(getString(R.string.done))){
-                    AppContext.listViewDone.notifyDataSetChanged();
+                    AppContext.listViewDone.update();
                 }
             }
         });

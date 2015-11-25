@@ -23,6 +23,7 @@ import java.util.List;
 
 import br.udesc.ceavi.cvfm.R;
 import br.udesc.ceavi.cvfm.SearchActivity;
+import br.udesc.ceavi.cvfm.UpdateListView;
 import br.udesc.ceavi.cvfm.base.AppContext;
 import br.udesc.ceavi.cvfm.model.Control;
 import br.udesc.ceavi.cvfm.model.Search;
@@ -33,7 +34,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.converter.GsonConverter;
 
-public class ControlAdapter extends BaseAdapter {
+public class ControlAdapter extends BaseAdapter{
 
     private final Context context;
     private final List<Control> values;
@@ -220,6 +221,7 @@ public class ControlAdapter extends BaseAdapter {
         }
     }
 
+
     private class ExportControl extends AsyncTask<String, String, String>{
 
         private ProgressDialog progressDialog;
@@ -237,7 +239,7 @@ public class ControlAdapter extends BaseAdapter {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            notifyDataSetChanged();
+            AppContext.listViewControl.update();
             progressDialog.dismiss();
         }
 

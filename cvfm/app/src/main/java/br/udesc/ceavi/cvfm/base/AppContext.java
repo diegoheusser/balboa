@@ -2,6 +2,7 @@ package br.udesc.ceavi.cvfm.base;
 
 import android.content.Context;
 
+import br.udesc.ceavi.cvfm.ControlActivity;
 import br.udesc.ceavi.cvfm.UpdateListView;
 import br.udesc.ceavi.cvfm.adapter.SearchDoneAdapter;
 import br.udesc.ceavi.cvfm.model.Control;
@@ -15,5 +16,7 @@ public class AppContext {
     public static Control CONTROL = null;
     public static Context CONTEXT = null;
     public static UpdateListView listViewDone = null;
+    public static UpdateListView listViewControl = null;
+    public static ControlActivity controlActivity = null;
 
 }

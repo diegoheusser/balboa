@@ -15,15 +15,16 @@ import br.udesc.ceavi.cvfm.adapter.ControlAdapter;
 import br.udesc.ceavi.cvfm.base.AppContext;
 import br.udesc.ceavi.cvfm.model.Control;
 
-public class ControlActivity extends ListActivity {
+public class ControlActivity extends ListActivity implements UpdateListView {
 
-    private ProgressDialog progressDialog;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ControlAdapter adapter;
     private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AppContext.controlActivity = this;
+        AppContext.listViewControl = this;
         super.onCreate(savedInstanceState);
         AppContext.CONTEXT = this;
         setContentView(br.udesc.ceavi.cvfm.R.layout.control_activity);
@@ -66,37 +67,20 @@ public class ControlActivity extends ListActivity {
 
         adapter = new ControlAdapter(ControlActivity.this, list);
 
+
         listView.setAdapter(adapter);
    }
 
+    @Override
+    public void update() {
+        final List<Control> list =
+                Control.seekAllByResearcher(
+                        ControlActivity.this,
+                        AppContext.USER.getId()
+                );
+        listView = getListView();
+        adapter = new ControlAdapter(ControlActivity.this, list);
+        listView.setAdapter(adapter);
+    }
 
-    /*private class LoadControl extends AsyncTask<String, String, String> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = new ProgressDialog(ControlActivity.this);
-            progressDialog.setMessage(getString(R.string.loading));
-            progressDialog.setIndeterminate(false);
-            progressDialog.setCancelable(false);
-            progressDialog.show();
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-                updateListView();
-            } catch(Exception ex){
-                ex.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            progressDialog.dismiss();
-            adapter.notifyDataSetChanged();
-        }
-    }*/
 }

@@ -31,7 +31,7 @@ public class SearchDoneActivity extends ListActivity implements UpdateListView {
     }
 
     @Override
-    public void notifyDataSetChanged() {
+    public void update() {
         if(adapter != null) {
             values = Search.seekAllDone(
                     SearchDoneActivity.this,
